@@ -1,0 +1,28 @@
+﻿@page "/renderlist";
+
+
+<GridAutoComponent Items="employees" ColumnsToExcludeCSV="Id"></GridAutoComponent>
+
+@code
+{
+    private List<Employee> employees;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        employees = new List<Employee>();
+
+        employees.AddRange(new Employee[2]
+        {
+            new Employee{Name = "n1",Position = "Developer"},
+            new Employee{Name = "n2",Position = "Developer"},
+        });
+    }
+
+    class Employee
+    {
+        public string Name { get; set; }
+        public string Position { get; set; }
+    }
+}

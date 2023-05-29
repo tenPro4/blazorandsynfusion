@@ -1,0 +1,32 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>BasicBlazor</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <AuthorizeView>
+                <Authorized>
+                    <a class="nav nav-link" href="Identity/Account/Manage/Index">
+                        Hello, @context.User.Identity.Name!
+                    </a>
+                    <form action="/Identity/Account/Logout?returnUrl=%2f" method="post">
+                        <button class="btn btn-outline-info">Logout</button>
+                    </form>
+                </Authorized>
+                <NotAuthorized>
+                    <a class="btn btn-outline-dark" href="Identity/Account/Register">Register</a>
+                    <a class="btn btn-outline-dark" href="Identity/Account/Login">Login</a>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>

@@ -1,0 +1,3 @@
+truncate table __tablename
+
+https://www.syncfusion.com/blazor-components

@@ -1,0 +1,18 @@
+﻿@page "/FormSubmit";
+
+<h3>FormSubmit</h3>
+
+<EditForm Model="ee" OnValidSubmit="ValidFormSubmitted">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+    <InputText id="fname" @bind-Value="ee.Name"></InputText>
+    <InputText id="email" @bind-Value="ee.EmailAddress"></InputText>
+</EditForm>
+
+@code {
+    EE1 ee = new EE1();
+    private void ValidFormSubmitted()
+    {
+        
+    }
+}

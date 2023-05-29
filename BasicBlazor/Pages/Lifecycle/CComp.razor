@@ -1,0 +1,18 @@
+﻿<h3>CComp</h3>
+
+Counter value :@Counter
+
+@code {
+    public int Counter{ get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        Console.WriteLine($"ChildComp - OnAfterRender at {DateTime.Now.ToString()}");
+    }
+
+    public void Refresh()
+    {
+        this.StateHasChanged();
+    }
+}

@@ -1,0 +1,97 @@
+﻿
+@typeparam TItem
+
+<h3>DataGrid</h3>
+
+<table>
+    <thead>
+        <tr>
+            @if(Columns == null || !Columns.Any())
+            {
+                
+            }
+            else
+            {
+                foreach (var column in Columns)
+                {
+                    <th>@column.Caption</th>
+                }
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in DataItems.Skip(Paging.NumToSkip(CurrentPage)).Take(Paging.NumToTake(DataItems.Count)))
+        {
+            <tr>
+                @foreach(var column in Columns)
+                {
+                    <td>@typeof(TItem).GetProperty(column.DataField).GetValue(item)</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="level">
+    <div class="level-left">
+
+    </div>
+    <div class="level-right">
+        <div class="level-item">
+            @if(Paging != null && Paging.Enabled)
+            {
+                @if (Paging.CustomPager)
+                {
+                    @CustomPager
+                }
+                else
+                {
+                    <button @onclick="GoPrevPage"><b>&lt; Previous</b></button>
+                    <span>&nbsp;&nbsp;Page @CurrentPage of @Paging.MaxPage(DataItems.Count)&nbsp;&nbsp;</span>
+                    <button @onclick="GoNextPage"><b>Next &gt;</b></button>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int CurrentPage { get; set; } = 1;
+    [Parameter]
+    public List<TItem> DataItems { get; set; }
+    [Parameter]
+    public List<ColumnDefinition> Columns { get; set; }
+    [Parameter]
+    public PagingConfig Paging { get; set; }
+    [Parameter]
+    public RenderFragment CustomPager { get; set; }
+
+    public void GoPrevPage()
+    {
+        CurrentPage = Paging.PrePage(CurrentPage);
+    }
+
+    public void GoNextPage()
+    {
+        CurrentPage = Paging.NextPage(CurrentPage, DataItems.Count);
+    }
+
+    public void Sorting()
+    {
+        var asc = true;
+
+        if (asc)
+        {
+            DataItems.Sort((x, y) => typeof(TItem).GetProperty("feldname").GetValue(x).ToString()
+            .CompareTo(typeof(TItem).GetProperty("feldname").GetValue(y).ToString()));
+        }
+        else
+        {
+            DataItems.Sort((x, y) => typeof(TItem).GetProperty("feldname").GetValue(x).ToString()
+           .CompareTo(typeof(TItem).GetProperty("feldname").GetValue(y).ToString()));
+        }
+    }
+
+    public int MaxPage => Paging.MaxPage(DataItems.Count);
+
+}

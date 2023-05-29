@@ -1,0 +1,50 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<input type="number" @bind-value="person.amount" />
+
+<input type="radio" value="1" checked="@(selectGroup == 1)" onclick="@(() => selectGroup = 1)"/>
+
+<input type="radio" value="2" checked="@(selectGroup == 2)" onclick="@(() => selectGroup = 2)"/>
+
+@if(authState != null)
+{
+    <p>
+        Name: @authState.User.Identity.Name
+    </p>
+}
+
+@code
+{
+    IndexVM person = null;
+    int selectGroup = 1;
+
+    [CascadingParameter]
+    private Task<AuthenticationState> _authState { get; set; }
+
+    private AuthenticationState authState;
+
+    protected override async Task OnInitializedAsync()
+    {
+        authState = await _authState;
+
+        person = new IndexVM
+            {
+                name = "p1",
+                amount = 2
+            };
+    }
+
+    class IndexVM
+    {
+        public string name { get; set; }
+        public int amount { get; set; }
+    }
+}

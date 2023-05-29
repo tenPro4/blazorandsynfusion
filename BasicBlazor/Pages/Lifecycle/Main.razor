@@ -1,0 +1,44 @@
+﻿@page "/lifecycle";
+
+@using System.Timers
+
+<h3>Main</h3>
+
+Counter : @currentCount;
+
+<button @onclick="IncrementCount">Incre</button>
+
+<CComp @ref="child"></CComp>
+
+@code {
+    private int currentCount = 0;
+    private Timer timer;
+    private CComp child;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        timer = new Timer(2000);
+        timer.Elapsed += OnTimedEvent;
+        timer.Enabled = true;
+    }
+
+    private void OnTimedEvent(object source,ElapsedEventArgs e)
+    {
+        IncrementCount();
+    }
+
+    private void IncrementCount()
+    {
+        currentCount++;
+        child.Counter = currentCount;
+        child.Refresh();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        Console.WriteLine($"Counter - OnAfterRender at {DateTime.Now.ToString()}");
+    }
+}

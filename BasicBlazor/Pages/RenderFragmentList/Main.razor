@@ -1,0 +1,52 @@
+﻿@page "/rfList";
+
+<h3>Main</h3>
+
+<RepeatCom @ref="repeater" Items="employees">
+    <Header>
+        <h2>Header</h2>
+    </Header>
+    <Row Context="customer">
+        <div>Name: @customer.Name</div>
+        <div>Position: @customer.Position</div>
+        <button class="btn" @onclick="@(() =>{
+                                            EditEmp(customer);
+                                        })">Edit</button>
+    </Row>
+    <Footer>
+        <h2>Footer</h2>
+    </Footer>
+    <EditTemplate Context="currentCustomer">
+        <p>Name</p>
+        <input class="form-control" @bind-value="currentCustomer.Name"/>
+    </EditTemplate>
+</RepeatCom>
+
+@code {
+    private List<Employee> employees;
+    private RepeatCom<Employee> repeater;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        employees = new List<Employee>();
+
+        employees.AddRange(new Employee[2]
+        {
+            new Employee{Name = "n1",Position = "Developer"},
+            new Employee{Name = "n2",Position = "Developer"},
+        });
+    }
+
+    private void EditEmp(Employee emp)
+    {
+        repeater.ItemToEdit = emp;
+    }
+
+    class Employee
+    {
+        public string Name { get; set; }
+        public string Position { get; set; }
+    }
+}

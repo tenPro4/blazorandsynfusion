@@ -1,0 +1,37 @@
+﻿<h3>FluxIndex</h3>
+@implements IDisposable
+@inject CounterStore counterStore
+@inject IActionDispatcher actionDispatcher
+
+<p>Current count: @counterStore.GetState().Count</p>
+
+<button @onclick="IncreCount">Click</button>
+
+@code {
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        //counterStore.AddStateChangeListeners(() =>
+        //{
+        //    StateHasChanged();
+        //});
+
+        counterStore.AddStateChangeListeners(UpdateView);
+    }
+
+    private void IncreCount()
+    {
+        actionDispatcher.Dispatch(new IncrementAction());
+    }
+
+    public void UpdateView()
+    {
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        counterStore.RemoveStateChangeListeners(UpdateView);
+    }
+}

@@ -1,0 +1,29 @@
+﻿@page "/teams"
+
+<h3>Teams</h3>
+
+
+@foreach(var g in Groups)
+{
+    <a href="@($"/team/{g.Id}")">@g.name</a>
+}
+
+
+@code {
+    private List<Group> Groups;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Groups = new List<Group>();
+        Groups.Add(new Group { Id = 1, name = "g1" });
+        Groups.Add(new Group { Id = 2, name = "g2" });
+    }
+
+    class Group
+    {
+        public int Id { get; set; }
+        public string name { get; set; }
+    }
+}

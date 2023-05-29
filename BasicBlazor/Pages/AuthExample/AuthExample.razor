@@ -1,0 +1,17 @@
+﻿@page "/Auth";
+@attribute [Authorize]
+
+<AuthorizeView>
+    <Authorized>
+        Authorize can view this
+    </Authorized>
+    <NotAuthorized>
+        UnAuthorize view this
+    </NotAuthorized>
+</AuthorizeView>
+
+<h3>AuthExample</h3>
+
+@code {
+
+}

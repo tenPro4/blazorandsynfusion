@@ -1,0 +1,20 @@
+﻿@page "/AsyncIndex";
+
+<h3>AsyncIndex</h3>
+
+Load below content once data get. Above html text display without delay
+<ChildAsync ee="ee"></ChildAsync>
+
+@code {
+    private EE1 ee;
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        await Task.Run(() =>
+        {
+            System.Threading.Thread.Sleep(5000);
+            ee = new EE1 { Name = "ssss" };
+        });
+    }
+}

@@ -1,0 +1,63 @@
+﻿@page "/datagrid";
+
+<h3>DataGridIndex</h3>
+
+<DataGrid
+    @ref="grid"
+    Columns="colDefinition" 
+    DataItems="listEmp"
+    Paging="@(new PagingConfig{
+        Enabled=true,
+        PageSize=2,
+        CustomPager=false
+    })">
+    <CustomPager>
+        <button>Prev</button>
+        <span>&nbsp;&nbsp;Page
+            <input type="number" max="@grid.MaxPage" min="1" @bind-value="@grid.CurrentPage"/>
+            of @grid.MaxPage &nbsp;&nbsp;
+        </span>
+        <button>Next</button>
+    </CustomPager>    
+</DataGrid>
+
+@code {
+    private DataGrid<EE1> grid;
+    private List<EE1> listEmp;
+    private List<ColumnDefinition> colDefinition;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Initilize();
+    }
+
+    private void Initilize()
+    {
+        if(colDefinition == null)
+        {
+            colDefinition = new List<ColumnDefinition>();
+            colDefinition.AddRange(
+                new ColumnDefinition[]
+                {
+                    new ColumnDefinition { DataField = "Name",Caption="Name"},
+                    new ColumnDefinition { DataField = "EmailAddress",Caption="Email"}
+                }
+            );
+        }
+
+        if(listEmp == null)
+        {
+            listEmp = new List<EE1>();
+            listEmp.AddRange(
+                new EE1[]
+                {
+                    new EE1 { Name="n1",EmailAddress="e1@f.com"},
+                    new EE1 { Name="n2",EmailAddress="e2@f.com"},
+                     new EE1 { Name="n3",EmailAddress="e3@f.com"},
+                    new EE1 { Name="n4",EmailAddress="e4@f.com"}
+                }
+            );
+        }
+    }
+}

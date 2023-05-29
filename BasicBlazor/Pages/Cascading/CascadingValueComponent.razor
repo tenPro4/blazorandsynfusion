@@ -1,0 +1,18 @@
+﻿@page "/cascading";
+
+<h3>CascadingValueComponent</h3>
+
+<button @onclick="IC">Add Count</button>
+
+<CascadingValue Name="Counter" Value="currentCount">
+    <CascadingChild></CascadingChild>
+</CascadingValue>
+
+@code {
+    private int currentCount = 0;
+
+    private void IC()
+    {
+        currentCount++;
+    }
+}

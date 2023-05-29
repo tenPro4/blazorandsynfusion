@@ -1,0 +1,14 @@
+﻿@page "/cp"
+
+<h3>CPComponent</h3>
+
+<Counter SetCount="SetParentCount"></Counter>
+
+@code {
+    private int currentCount;
+
+    private void SetParentCount(int value)
+    {
+        currentCount = value;
+    }
+}

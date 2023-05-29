@@ -1,0 +1,12 @@
+﻿@page "/RC";
+
+<h3>RC</h3>
+
+<button @onclick="(() =>{
+    crcRef.Switch();
+})">Show</button>
+<CRC @ref="crcRef"></CRC>
+
+@code {
+    private CRC crcRef;
+}

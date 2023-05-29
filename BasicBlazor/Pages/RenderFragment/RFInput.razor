@@ -1,0 +1,10 @@
+﻿<label>@Label</label>
+@InputField
+
+@code {
+    [Parameter]
+    public string Label { get; set; }
+
+    [Parameter]
+    public RenderFragment InputField { get; set; }
+}

@@ -1,0 +1,17 @@
+﻿@if (display)
+{
+    <h3>CRC</h3>
+}
+
+
+
+
+@code {
+    private bool display { get; set; } = false;
+
+    public void Switch()
+    {
+        this.display = !this.display;
+        StateHasChanged();
+    }
+}
